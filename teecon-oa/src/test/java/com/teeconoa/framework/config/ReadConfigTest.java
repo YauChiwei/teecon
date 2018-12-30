@@ -20,11 +20,11 @@ public class ReadConfigTest {
     public void testReadDruidConfig() throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("simpleProp: " + objectMapper.writeValueAsString(druidConfig.getSimpleProp()));
-        System.out.println("arrayProps: " + objectMapper.writeValueAsString(druidConfig.getArrayProps()));
+//        System.out.println("simpleProp: " + objectMapper.writeValueAsString(druidConfig.getSimpleProp()));
+//        System.out.println("arrayProps: " + objectMapper.writeValueAsString(druidConfig.getArrayProps()));
 //        System.out.println("listProp1: " + objectMapper.writeValueAsString(druidConfig.getListProp1()));
 //        System.out.println("listProp2: " + objectMapper.writeValueAsString(druidConfig.getListProp2()));
-        System.out.println("mapProps: " + objectMapper.writeValueAsString(druidConfig.getMapProps()));
+//        System.out.println("mapProps: " + objectMapper.writeValueAsString(druidConfig.getMapProps()));
     }
 
 }
