@@ -1,7 +1,7 @@
 package com.teeconoa.framework.web.page;
 
-import com.teeconoa.common.Constants;
 import com.teeconoa.common.ServletUtils;
+import com.teeconoa.common.constant.Constants;
 
 /**
 *  Created by AndyYau

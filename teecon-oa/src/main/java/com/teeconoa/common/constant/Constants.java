@@ -1,4 +1,4 @@
-package com.teeconoa.common;
+package com.teeconoa.common.constant;
 
 /**
  * 通用常量信息
