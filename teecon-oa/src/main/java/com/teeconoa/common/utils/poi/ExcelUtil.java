@@ -1,4 +1,4 @@
-package com.ruoyi.common.utils.poi;
+package com.teeconoa.common.utils.poi;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,9 +43,10 @@ import com.ruoyi.framework.web.domain.AjaxResult;
 
 /**
  * Excel相关处理
- * 
- * @author ruoyi
- */
+*  Created by AndyYau
+*  2019年1月17日 - 上午12:51:25
+*  Company: Teecon
+**/
 public class ExcelUtil<T>
 {
     private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
