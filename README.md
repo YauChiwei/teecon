@@ -1,2 +1,2 @@
-# teecon
-My company project
+# teeconoa
+A company OA system
