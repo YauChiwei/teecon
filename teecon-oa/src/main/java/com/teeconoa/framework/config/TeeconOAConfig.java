@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 *  Company: Teecon
 **/
 @Component
-@ConfigurationProperties(prefix = "ruoyi")
+@ConfigurationProperties(prefix = "teecon")
 public class TeeconOAConfig
 {
     /** 项目名称 */

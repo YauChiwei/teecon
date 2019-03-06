@@ -5,11 +5,11 @@ import java.util.TimerTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ruoyi.common.utils.AddressUtils;
-import com.ruoyi.common.utils.spring.SpringUtils;
-import com.ruoyi.project.monitor.online.service.IUserOnlineService;
+import com.teeconoa.common.utils.AddressUtils;
+import com.teeconoa.common.utils.spring.SpringUtils;
 import com.teeconoa.project.monitor.online.domain.OnlineSession;
 import com.teeconoa.project.monitor.online.domain.UserOnline;
+import com.teeconoa.project.monitor.online.service.IUserOnlineService;
 
 /**
 *  Created by AndyYau

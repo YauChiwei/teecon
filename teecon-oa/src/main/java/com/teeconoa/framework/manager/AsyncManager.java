@@ -21,19 +21,20 @@ public class AsyncManager {
      */
     private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(5);
     
-    AsyncManager me = null;
     
     /**
      * 单例模式
      **/
-    public AsyncManager newInstance() {
-    	if(me == null) {
-    		me = new AsyncManager();
-    	}
-    	return me;
+    public static AsyncManager newInstance() {
+    	return SingletonHandler.instance;
     }
     
     public void executeTask(TimerTask task) {
     	executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
+    }
+    
+    //内部类
+    private static class SingletonHandler{
+    	private static AsyncManager instance = new AsyncManager();
     }
 }
