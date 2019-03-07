@@ -10,6 +10,8 @@ import com.teeconoa.common.utils.spring.SpringUtils;
 import com.teeconoa.project.monitor.online.domain.OnlineSession;
 import com.teeconoa.project.monitor.online.domain.UserOnline;
 import com.teeconoa.project.monitor.online.service.IUserOnlineService;
+import com.teeconoa.project.monitor.operlog.domain.OperLog;
+import com.teeconoa.project.monitor.operlog.service.IOperLogService;
 
 /**
 *  Created by AndyYau
@@ -49,4 +51,43 @@ public class AsyncFactory {
 			
 		};
 	}
+	
+	/**
+     * 操作日志记录
+     * 
+     * @param operLog 操作日志信息
+     * @return 任务task
+     */
+	public static TimerTask logOperation(final OperLog operLog) {
+		return new TimerTask() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+				SpringUtils.getBean(IOperLogService.class).insertOperlog(operLog);
+			}
+		};
+	}
+	
+    /**
+     * 记录登陆信息
+     * 
+     * @param username 用户名
+     * @param status 状态
+     * @param message 消息
+     * @param args 列表
+     * @return 任务task
+     */
+	public static TimerTask recordLogininfor(final String username, final String status, final String message, final Object... args)
+    {
+		return new TimerTask() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.google.common.collect.Maps;
 import com.teeconoa.common.StringUtils;
+import com.teeconoa.common.xss.XssFilter;
 
 /**
 *  Created by AndyYau

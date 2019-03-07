@@ -10,7 +10,6 @@ import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -23,6 +22,8 @@ import com.teeconoa.common.StringUtils;
 import com.teeconoa.framework.shiro.realm.UserRealm;
 import com.teeconoa.framework.shiro.session.OnlineSessionDAO;
 import com.teeconoa.framework.shiro.session.OnlineSessionFactory;
+import com.teeconoa.framework.shiro.web.filter.LogoutFilter;
+import com.teeconoa.framework.shiro.web.session.OnlineWebSessionManager;
 import com.teeconoa.framework.shiro.web.session.SpringSessionValidationScheduler;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
