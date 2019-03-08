@@ -23,6 +23,9 @@ import com.teeconoa.framework.shiro.realm.UserRealm;
 import com.teeconoa.framework.shiro.session.OnlineSessionDAO;
 import com.teeconoa.framework.shiro.session.OnlineSessionFactory;
 import com.teeconoa.framework.shiro.web.filter.LogoutFilter;
+import com.teeconoa.framework.shiro.web.filter.captcha.CaptchaValidateFilter;
+import com.teeconoa.framework.shiro.web.filter.online.OnlineSessionFilter;
+import com.teeconoa.framework.shiro.web.filter.sync.SyncOnlineSessionFilter;
 import com.teeconoa.framework.shiro.web.session.OnlineWebSessionManager;
 import com.teeconoa.framework.shiro.web.session.SpringSessionValidationScheduler;
 

@@ -9,6 +9,8 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 import com.teeconoa.framework.aspectj.lang.annotation.Excel;
 import com.teeconoa.framework.web.domain.BaseEntity;
+import com.teeconoa.project.system.dept.domain.Dept;
+import com.teeconoa.project.system.role.domain.Role;
 
 /**
 *  Created by AndyYau
