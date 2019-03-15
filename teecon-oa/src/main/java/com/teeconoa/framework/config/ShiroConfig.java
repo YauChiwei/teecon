@@ -34,8 +34,10 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 /**
  * 权限配置加载
  * 
- * @author ruoyi
- */
+*  Created by AndyYau
+*  2019年1月6日 - 下午10:49:15
+*  Company: Teecon
+**/
 @Configuration
 public class ShiroConfig
 {
@@ -87,7 +89,7 @@ public class ShiroConfig
     @Bean
     public EhCacheManager getEhCacheManager()
     {
-        net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("ruoyi");
+        net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("teeconoa");
         EhCacheManager em = new EhCacheManager();
         if (StringUtils.isNull(cacheManager))
         {

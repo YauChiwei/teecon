@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = DruidConfig.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = DruidConfig.class)
 public class ReadConfigTest {
 
     @Autowired
     public DruidConfig druidConfig;
 
-    @Test
+//    @Test
     public void testReadDruidConfig() throws JsonProcessingException {
 
-        ObjectMapper objectMapper = new ObjectMapper();
+//        ObjectMapper objectMapper = new ObjectMapper();
 //        System.out.println("simpleProp: " + objectMapper.writeValueAsString(druidConfig.getSimpleProp()));
 //        System.out.println("arrayProps: " + objectMapper.writeValueAsString(druidConfig.getArrayProps()));
 //        System.out.println("listProp1: " + objectMapper.writeValueAsString(druidConfig.getListProp1()));
