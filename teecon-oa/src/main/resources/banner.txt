@@ -1,0 +1,2 @@
+Application Version: ${teecon-oa.version}
+Spring Boot Version: ${spring-boot.version}

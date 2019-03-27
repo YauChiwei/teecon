@@ -3,6 +3,7 @@ package com.teeconoa.project.system.user.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.teeconoa.project.system.user.domain.User;
 import com.teeconoa.project.system.user.mapper.UserMapper;
@@ -14,6 +15,7 @@ import com.teeconoa.project.system.user.mapper.UserRoleMapper;
 *  2019年3月15日 - 下午5:05:53
 *  Company: Teecon
 **/
+@Service
 public class UserServiceImpl implements IUserService {
 
 	@Autowired

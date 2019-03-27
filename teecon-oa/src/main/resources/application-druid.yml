@@ -6,7 +6,7 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql://127.0.0.1:3306/teeconoa?useSSL=false&useUnicode=true&characterEncoding=utf8
+                url: jdbc:mysql://127.0.0.1:3306/teeconoa?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
                 username: root
                 password: Pwk080506
             # 从库数据源
