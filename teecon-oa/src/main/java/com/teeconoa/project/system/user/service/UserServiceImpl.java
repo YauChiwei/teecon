@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teeconoa.framework.shiro.service.PwdService;
+import com.teeconoa.project.system.post.mapper.PostMapper;
+import com.teeconoa.project.system.role.mapper.RoleMapper;
 import com.teeconoa.project.system.user.domain.User;
 import com.teeconoa.project.system.user.mapper.UserMapper;
 import com.teeconoa.project.system.user.mapper.UserPostMapper;
@@ -24,6 +27,13 @@ public class UserServiceImpl implements IUserService {
 	private UserPostMapper userPostMapper;
 	@Autowired
 	private UserRoleMapper userRoleMapper;
+	@Autowired
+    private RoleMapper roleMapper;
+    @Autowired
+    private PostMapper postMapper;
+    @Autowired
+    private PwdService pwdService;
+	
 	
 	@Override
 	public List<User> selectUserList(User user) {
@@ -33,8 +43,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User selectUserByLoginName(String userName) {
-		// TODO Auto-generated method stub
-		return null;
+		return userMapper.selectUserByLoginName(userName);
 	}
 
 	@Override

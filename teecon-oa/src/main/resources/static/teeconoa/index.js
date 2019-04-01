@@ -201,9 +201,9 @@ $(function() {
                     $(this).addClass('active').siblings('.menuTab').removeClass('active');
                     scrollToTab(this);
                     // 显示tab对应的内容区
-                    $('.mainContent .RuoYi_iframe').each(function() {
+                    $('.mainContent .TeeconOA_iframe').each(function() {
                         if ($(this).data('id') == dataUrl) {
-                            $(this).show().siblings('.RuoYi_iframe').hide();
+                            $(this).show().siblings('.TeeconOA_iframe').hide();
                             return false;
                         }
                     });
@@ -218,8 +218,8 @@ $(function() {
             $('.menuTab').removeClass('active');
 
             // 添加选项卡对应的iframe
-            var str1 = '<iframe class="RuoYi_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
-            $('.mainContent').find('iframe.RuoYi_iframe').hide().parents('.mainContent').append(str1);
+            var str1 = '<iframe class="TeeconOA_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+            $('.mainContent').find('iframe.TeeconOA_iframe').hide().parents('.mainContent').append(str1);
             
             $.modal.loading("数据加载中，请稍后...");
             
@@ -250,9 +250,9 @@ $(function() {
                 var activeId = $(this).parents('.menuTab').next('.menuTab:eq(0)').data('id');
                 $(this).parents('.menuTab').next('.menuTab:eq(0)').addClass('active');
 
-                $('.mainContent .RuoYi_iframe').each(function() {
+                $('.mainContent .TeeconOA_iframe').each(function() {
                     if ($(this).data('id') == activeId) {
-                        $(this).show().siblings('.RuoYi_iframe').hide();
+                        $(this).show().siblings('.TeeconOA_iframe').hide();
                         return false;
                     }
                 });
@@ -269,7 +269,7 @@ $(function() {
                 $(this).parents('.menuTab').remove();
 
                 // 移除tab对应的内容区
-                $('.mainContent .RuoYi_iframe').each(function() {
+                $('.mainContent .TeeconOA_iframe').each(function() {
                     if ($(this).data('id') == closeTabId) {
                         $(this).remove();
                         return false;
@@ -281,9 +281,9 @@ $(function() {
             if ($(this).parents('.menuTab').prev('.menuTab').size()) {
                 var activeId = $(this).parents('.menuTab').prev('.menuTab:last').data('id');
                 $(this).parents('.menuTab').prev('.menuTab:last').addClass('active');
-                $('.mainContent .RuoYi_iframe').each(function() {
+                $('.mainContent .TeeconOA_iframe').each(function() {
                     if ($(this).data('id') == activeId) {
-                        $(this).show().siblings('.RuoYi_iframe').hide();
+                        $(this).show().siblings('.TeeconOA_iframe').hide();
                         return false;
                     }
                 });
@@ -292,7 +292,7 @@ $(function() {
                 $(this).parents('.menuTab').remove();
 
                 // 移除tab对应的内容区
-                $('.mainContent .RuoYi_iframe').each(function() {
+                $('.mainContent .TeeconOA_iframe').each(function() {
                     if ($(this).data('id') == closeTabId) {
                         $(this).remove();
                         return false;
@@ -306,7 +306,7 @@ $(function() {
             $(this).parents('.menuTab').remove();
 
             // 移除相应tab对应的内容区
-            $('.mainContent .RuoYi_iframe').each(function() {
+            $('.mainContent .TeeconOA_iframe').each(function() {
                 if ($(this).data('id') == closeTabId) {
                     $(this).remove();
                     return false;
@@ -322,7 +322,7 @@ $(function() {
     //关闭其他选项卡
     function closeOtherTabs() {
         $('.page-tabs-content').children("[data-id]").not(":first").not(".active").each(function() {
-            $('.RuoYi_iframe[data-id="' + $(this).data('id') + '"]').remove();
+            $('.TeeconOA_iframe[data-id="' + $(this).data('id') + '"]').remove();
             $(this).remove();
         });
         $('.page-tabs-content').css("margin-left", "0");
@@ -340,9 +340,9 @@ $(function() {
         if (!$(this).hasClass('active')) {
             var currentId = $(this).data('id');
             // 显示tab对应的内容区
-            $('.mainContent .RuoYi_iframe').each(function() {
+            $('.mainContent .TeeconOA_iframe').each(function() {
                 if ($(this).data('id') == currentId) {
-                    $(this).show().siblings('.RuoYi_iframe').hide();
+                    $(this).show().siblings('.TeeconOA_iframe').hide();
                     return false;
                 }
             });
@@ -357,7 +357,7 @@ $(function() {
     //刷新iframe
     function refreshTab() {
     	var currentId = $('.page-tabs-content').find('.active').attr('data-id');
-    	var target = $('.RuoYi_iframe[data-id="' + currentId + '"]');
+    	var target = $('.TeeconOA_iframe[data-id="' + currentId + '"]');
         var url = target.attr('src');
         target.attr('src', url).ready();
     }
@@ -387,11 +387,11 @@ $(function() {
     // 关闭全部
     $('.tabCloseAll').on('click', function() {
         $('.page-tabs-content').children("[data-id]").not(":first").each(function() {
-            $('.RuoYi_iframe[data-id="' + $(this).data('id') + '"]').remove();
+            $('.TeeconOA_iframe[data-id="' + $(this).data('id') + '"]').remove();
             $(this).remove();
         });
         $('.page-tabs-content').children("[data-id]:first").each(function() {
-            $('.RuoYi_iframe[data-id="' + $(this).data('id') + '"]').show();
+            $('.TeeconOA_iframe[data-id="' + $(this).data('id') + '"]').show();
             $(this).addClass("active");
         });
         $('.page-tabs-content').css("margin-left", "0");

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.teeconoa.common.constant.Constants;
 import com.teeconoa.common.exception.user.UserPasswordNotMatchException;
+import com.teeconoa.common.exception.user.UserPasswordRetryLimitExceedException;
 import com.teeconoa.common.utils.MessageUtils;
 import com.teeconoa.framework.manager.AsyncManager;
 import com.teeconoa.framework.manager.factory.AsyncFactory;
@@ -32,7 +33,7 @@ public class PwdService {
 	
 	private Cache<String, AtomicInteger> loginRecordCache;
 	
-	@Value(value="user.password.maxRetryCount")
+	@Value(value="${user.password.maxRetryCount}")
 	private String maxRetryCount;
 	
 	/**
@@ -54,6 +55,7 @@ public class PwdService {
 		}
 		if(retryCount.incrementAndGet() > Integer.valueOf(maxRetryCount).intValue()) {
 			AsyncManager.newInstance().executeTask(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount)));
+			throw new UserPasswordRetryLimitExceedException(Integer.valueOf(maxRetryCount).intValue());
 		}
 		if(!matches(user, password)) {
 			AsyncManager.newInstance().executeTask(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.count", retryCount)));
@@ -78,6 +80,6 @@ public class PwdService {
 	
 	public static void main(String[] args)
     {
-        System.out.println(new PwdService().encryptPassword("admin", "admin123", "111111"));
+        System.out.println(new PwdService().encryptPassword("admin", "admin", "111111"));
     }
 }
