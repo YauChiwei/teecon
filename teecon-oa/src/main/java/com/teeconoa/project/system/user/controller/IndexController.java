@@ -33,8 +33,16 @@ public class IndexController extends BaseController {
 		User user = super.getSysUser();
 		List<Menu> mList = menuService.selectMenusByUser(user);
         map.put("menus", mList);
+        map.put("user", user);
         map.put("copyrightYear", teeconOAConfig.getCopyrightYear());
 		return "index";
 	}
 	
+    // 系统介绍
+    @GetMapping("/system/main")
+    public String main(ModelMap mmap)
+    {
+        mmap.put("version", teeconOAConfig.getVersion());
+        return "main";
+    }
 }
