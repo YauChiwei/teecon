@@ -67,7 +67,7 @@ public class BeanUtils {
     	Method[] methods = obj.getClass().getMethods();
     	for(Method method : methods) {
     		Matcher matcher = GET_PATTERN.matcher(method.getName());
-    		if(matcher.matches() && (method.getParameterTypes().length == 1)) {
+    		if(matcher.matches() && (method.getParameterTypes().length == 0)) {
     			getterMethodList.add(method);
     		}
     	}

@@ -30,7 +30,7 @@ public class IndexController extends BaseController {
 	// 系统首页
     @GetMapping("/index")
 	public String index(ModelMap map) {
-		User user = super.getSysUser();
+		User user = getSysUser();
 		List<Menu> mList = menuService.selectMenusByUser(user);
         map.put("menus", mList);
         map.put("user", user);
