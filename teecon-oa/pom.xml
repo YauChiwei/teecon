@@ -241,6 +241,11 @@
 			<artifactId>snakeyaml</artifactId>
 		</dependency>
 
+		<dependency>
+    		<groupId>org.mybatis.generator</groupId>
+    		<artifactId>mybatis-generator-core</artifactId>
+    		<version>1.3.7</version>
+		</dependency>
   </dependencies>
   
   <build>
@@ -251,6 +256,16 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.7</version>
+				<configuration>
+					<configurationFile>src/main/resources/generatorConfig</configurationFile>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
 				</configuration>
 			</plugin>
 		</plugins>
