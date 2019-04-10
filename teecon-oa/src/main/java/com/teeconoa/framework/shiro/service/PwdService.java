@@ -70,7 +70,7 @@ public class PwdService {
 		return user.getPassword().equals(encryptPassword(user.getLoginName(), password, user.getSalt()));
 	}
 	
-	private String encryptPassword(String username, String password, String salt) {
+	public String encryptPassword(String username, String password, String salt) {
 		return new Md5Hash(username + password + salt).toHex().toString();
 	}
 	

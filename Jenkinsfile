@@ -1,9 +1,14 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven:3-alpine' 
+      args '-v /Users/mac/.m2:/Users/mac/.m2' 
+    }
+  }
   stages {
-    stage('build') {
+    stage('Build') { 
       steps {
-        git(url: 'https://github.com/YauChiwei/teecon.git', branch: 'master', poll: true, changelog: true)
+        sh 'mvn -B -DskipTests clean package' 
       }
     }
   }

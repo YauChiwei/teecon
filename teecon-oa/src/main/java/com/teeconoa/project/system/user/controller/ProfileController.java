@@ -35,7 +35,7 @@ public class ProfileController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
-	private final String prefix = "/system/user";
+	private final String prefix = "system/user/profile";
 	
 	@Autowired
 	private IUserService userService;
@@ -72,7 +72,7 @@ public class ProfileController extends BaseController {
 	@GetMapping("/resetPwd/{userId}")
 	public String resetPassword(@PathVariable("userId") Long userId, ModelMap map) {
 		map.put("user", userService.selectUserById(userId));
-		return prefix + "resetPwd";
+		return prefix + "/resetPwd";
 	}
 	
 	@Log(title = "重置密码", businessType = BusinessType.UPDATE)
@@ -94,7 +94,7 @@ public class ProfileController extends BaseController {
 	 * @return
 	 */
 	@GetMapping("/edit/{userId}")
-	public String edit(@PathVariable("userId") Long userId, ModelMap map) {
+	public String edit(@PathVariable("userId") Long userId, ModelMap map) throws Exception{
 		map.put("user", userService.selectUserById(userId));
 		return prefix + "/edit";
 	}
@@ -103,7 +103,7 @@ public class ProfileController extends BaseController {
      * 修改头像
      */
     @GetMapping("/avatar/{userId}")
-    public String avatar(@PathVariable("userId") Long userId, ModelMap mmap)
+    public String avatar(@PathVariable("userId") Long userId, ModelMap mmap) throws Exception
     {
         mmap.put("user", userService.selectUserById(userId));
         return prefix + "/avatar";
