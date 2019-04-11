@@ -6,12 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teeconoa.common.StringUtils;
 import com.teeconoa.common.constant.UserConstants;
 import com.teeconoa.common.exception.BusinessException;
 import com.teeconoa.common.support.Convert;
 import com.teeconoa.common.utils.security.ShiroUtils;
 import com.teeconoa.framework.shiro.service.PwdService;
+import com.teeconoa.project.system.post.domain.Post;
 import com.teeconoa.project.system.post.mapper.PostMapper;
+import com.teeconoa.project.system.role.domain.Role;
 import com.teeconoa.project.system.role.mapper.RoleMapper;
 import com.teeconoa.project.system.user.domain.User;
 import com.teeconoa.project.system.user.domain.UserPost;
@@ -134,26 +137,58 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public String checkPhoneUnique(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
+		User userInfo = userMapper.checkPhoneUnique(user.getPhonenumber());
+		if(StringUtils.isNotNull(userInfo) && userInfo.getUserId().longValue() != userId.longValue()) {
+			return UserConstants.USER_PHONE_NOT_UNIQUE;
+		}
+		return UserConstants.USER_PHONE_UNIQUE;
 	}
 
 	@Override
 	public String checkEmailUnique(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
+		User userInfo = userMapper.checkEmailUnique(user.getEmail());
+		if(StringUtils.isNotNull(userInfo) && userInfo.getUserId().longValue() != userId.longValue()) {
+			return UserConstants.USER_EMAIL_NOT_UNIQUE;
+		}
+		return UserConstants.USER_EMAIL_UNIQUE;
 	}
 
+	/**
+	 * 查询用户所属角色组
+	 */
 	@Override
 	public String selectUserRoleGroup(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Role> roleList = roleMapper.selectRolesByUserId(userId);
+		StringBuffer idsStr = new StringBuffer();
+        for (Role role : roleList)
+        {
+            idsStr.append(role.getRoleName()).append(",");
+        }
+        if (StringUtils.isNotEmpty(idsStr.toString()))
+        {
+            return idsStr.substring(0, idsStr.length() - 1);
+        }
+        return idsStr.toString();
 	}
 
+	/**
+	 * 查询用户所属岗位组
+	 */
 	@Override
 	public String selectUserPostGroup(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Post> postList = postMapper.selectPostsByUserId(userId);
+		StringBuffer idsStr = new StringBuffer();
+        for (Post post : postList)
+        {
+            idsStr.append(post.getPostName()).append(",");
+        }
+        if (StringUtils.isNotEmpty(idsStr.toString()))
+        {
+            return idsStr.substring(0, idsStr.length() - 1);
+        }
+        return idsStr.toString();
 	}
 	
 	/**
