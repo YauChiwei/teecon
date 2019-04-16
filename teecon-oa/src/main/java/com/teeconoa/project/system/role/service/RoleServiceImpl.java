@@ -1,11 +1,20 @@
 package com.teeconoa.project.system.role.service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teeconoa.common.StringUtils;
+import com.teeconoa.framework.aspectj.lang.annotation.DataScope;
 import com.teeconoa.project.system.role.domain.Role;
+import com.teeconoa.project.system.role.mapper.RoleDeptMapper;
+import com.teeconoa.project.system.role.mapper.RoleMapper;
+import com.teeconoa.project.system.role.mapper.RoleMenuMapper;
+import com.teeconoa.project.system.user.mapper.UserRoleMapper;
 
 /**
 *  角色业务层处理
@@ -16,16 +25,46 @@ import com.teeconoa.project.system.role.domain.Role;
 @Service
 public class RoleServiceImpl implements IRoleService {
 
+	@Autowired
+	private RoleMapper roleMapper;
+	
+	@Autowired
+	private RoleMenuMapper roleMenuMapper;
+	
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private RoleDeptMapper roleDeptMapper;
+	
+    /**
+     * 根据条件分页查询角色数据
+     * 
+     * @param role 角色信息
+     * @return 角色数据集合信息
+     */
 	@Override
+	@DataScope(tableAlias = "u")
 	public List<Role> selectRoleList(Role role) {
-		// TODO Auto-generated method stub
-		return null;
+		return roleMapper.selectRoleList(role);
 	}
 
+    /**
+     * 根据用户ID查询权限
+     * 
+     * @param userId 用户ID
+     * @return 权限列表
+     */
 	@Override
 	public Set<String> selectRoleKeys(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Role> perms = roleMapper.selectRolesByUserId(userId);
+		Set<String> set = new HashSet<>();
+		for(Role role : perms) {
+			if(StringUtils.isNotNull(perms)) {
+				set.addAll(Arrays.asList(role.getRoleKey().trim().split(",")));
+			}
+		}
+		return set;
 	}
 
 	@Override
