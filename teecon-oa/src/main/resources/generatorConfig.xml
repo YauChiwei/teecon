@@ -12,7 +12,7 @@
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/teeconoa" userId="root"
-                        password="Pwk080506"/>
+                        password="root"/>
 
 		<!-- 实体类生成路径 -->
         <javaModelGenerator targetPackage="com.teeconoa.project.system.notice.domain"

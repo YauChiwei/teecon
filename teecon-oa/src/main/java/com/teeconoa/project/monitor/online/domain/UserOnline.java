@@ -9,7 +9,6 @@ import com.teeconoa.project.monitor.online.domain.OnlineSession.OnlineStatus;
 /**
  * 当前在线会话 sys_user_online
  * 
- * @author ruoyi
  */
 public class UserOnline extends BaseEntity
 {

@@ -12,7 +12,6 @@ import com.teeconoa.common.StringUtils;
 /**
  * 类型转换器
  * 
- * @author ruoyi
  * 
  */
 public class Convert

@@ -27,7 +27,7 @@ server:
 #日志配置
 logging:
   level:
-    com.ruoyi: debug
+    com.teeconoa: debug
     org.springframework: WARN
     org.spring.springboot.dao: debug
 #用户配置
