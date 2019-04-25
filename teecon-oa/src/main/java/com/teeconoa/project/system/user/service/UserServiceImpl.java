@@ -3,6 +3,9 @@ package com.teeconoa.project.system.user.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.authc.credential.PasswordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,7 @@ import com.teeconoa.common.exception.BusinessException;
 import com.teeconoa.common.support.Convert;
 import com.teeconoa.common.utils.security.ShiroUtils;
 import com.teeconoa.framework.shiro.service.PwdService;
+import com.teeconoa.project.system.config.service.IConfigService;
 import com.teeconoa.project.system.post.domain.Post;
 import com.teeconoa.project.system.post.mapper.PostMapper;
 import com.teeconoa.project.system.role.domain.Role;
@@ -31,6 +35,7 @@ import com.teeconoa.project.system.user.mapper.UserRoleMapper;
 @Service
 public class UserServiceImpl implements IUserService {
 
+	private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserMapper userMapper;
 	@Autowired
@@ -43,6 +48,8 @@ public class UserServiceImpl implements IUserService {
     private PostMapper postMapper;
     @Autowired
     private PwdService pwdService;
+    @Autowired
+    private IConfigService configService;
 	
 	@Override
 	public List<User> selectUserList(User user) {
@@ -224,4 +231,79 @@ public class UserServiceImpl implements IUserService {
 			userPostMapper.batchUserPost(postList);
 		}
 	}
+
+	@Override
+	public String importUser(List<User> userList, Boolean isUpdateSupport) {
+        if (StringUtils.isNull(userList) || userList.size() == 0)
+        {
+            throw new BusinessException("导入用户数据不能为空！");
+        }
+        int successNum = 0;
+        int failureNum = 0;
+        StringBuilder successMsg = new StringBuilder();
+        StringBuilder failureMsg = new StringBuilder();
+        String operName = ShiroUtils.getLoginName();
+        String password = configService.selectConfigByKey("sys.user.initPassword");
+        for (User user : userList)
+        {
+            try
+            {
+                // 验证是否存在这个用户
+                User u = userMapper.selectUserByLoginName(user.getLoginName());
+                if (StringUtils.isNull(u))
+                {
+                    user.setPassword(password);
+                    user.setCreateBy(operName);
+                    this.insertUser(user);
+                    successNum++;
+                    successMsg.append("<br/>" + successNum + "、账号 " + user.getLoginName() + " 导入成功");
+                }
+                else if (isUpdateSupport)
+                {
+                    user.setUpdateBy(operName);
+                    this.updateUser(user);
+                    successNum++;
+                    successMsg.append("<br/>" + successNum + "、账号 " + user.getLoginName() + " 更新成功");
+                }
+                else
+                {
+                    failureNum++;
+                    failureMsg.append("<br/>" + failureNum + "、账号 " + user.getLoginName() + " 已存在");
+                }
+            }
+            catch (Exception e)
+            {
+                failureNum++;
+                String msg = "<br/>" + failureNum + "、账号 " + user.getLoginName() + " 导入失败：";
+                failureMsg.append(msg + e.getMessage());
+                log.error(msg, e);
+            }
+        }
+        if (failureNum > 0)
+        {
+            failureMsg.insert(0, "很抱歉，导入失败！共 " + failureNum + " 条数据格式不正确，错误如下：");
+            throw new BusinessException(failureMsg.toString());
+        }
+        else
+        {
+            successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
+        }
+        return successMsg.toString();
+	}
+
+	/**
+     * 用户状态修改
+     * 
+     * @param user 用户信息
+     * @return 结果
+     */
+	@Override
+	public int changeStatus(User user) {
+		if (User.isAdmin(user.getUserId()))
+        {
+            throw new BusinessException("不允许修改超级管理员用户");
+        }
+        return userMapper.updateUser(user);
+	}
+	
 }
