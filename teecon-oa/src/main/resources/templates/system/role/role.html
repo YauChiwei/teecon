@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org"
-	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<meta charset="utf-8">
-<head th:include="include :: header"></head>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('角色列表')" />
+</head>
 <body class="gray-bg">
-	
 	<div class="container-div">
 		<div class="row">
 			<div class="col-sm-12 search-collapse">
@@ -38,7 +37,7 @@
 				</form>
 			</div>
 		
-			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+			<div class="btn-group-sm" id="toolbar" role="group">
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:role:add">
 	                <i class="fa fa-plus"></i> 新增
 	            </a>
@@ -58,7 +57,7 @@
 			</div>
 		</div>
 	</div>
-	<div th:include="include :: footer"></div>
+	<th:block th:include="include :: footer" />
 	<script th:inline="javascript">
 		var editFlag = [[${@permission.hasPermi('system:role:edit')}]];
 		var removeFlag = [[${@permission.hasPermi('system:role:remove')}]];
@@ -75,8 +74,6 @@
 		        exportUrl: prefix + "/export",
 		        sortName: "roleSort",
 		        modalName: "角色",
-		        search: false,
-		        showExport: false,
 		        columns: [{
 		            checkbox: true
 		        },
@@ -100,12 +97,12 @@
 		            sortable: true
 		        },
 		        {
-		            field: 'status',
-		            title: '状态',
-		            align: 'center',
-		            formatter: function(value, row, index) {
-		            	return $.table.selectDictLabel(datas, value);
-		            }
+		        	visible: editFlag == 'hidden' ? false : true,
+		        	title: '角色状态',
+		        	align: 'center',
+		        	formatter: function (value, row, index) {
+		        		return statusTools(row);
+		        	}
 		        },
 		        {
 		            field: 'createTime',
@@ -118,8 +115,9 @@
 		            formatter: function(value, row, index) {
 		                var actions = [];
 		                actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.roleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-		                actions.push('<a class="btn btn-primary btn-xs ' + editFlag + '" href="#" onclick="rule(\'' + row.roleId + '\')"><i class="fa fa-check-square-o"></i>数据权限</a> ');
-		                actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.roleId + '\')"><i class="fa fa-remove"></i>删除</a>');
+		                actions.push('<a class="btn btn-primary btn-xs ' + editFlag + '" href="#" onclick="authDataScope(\'' + row.roleId + '\')"><i class="fa fa-check-square-o"></i>数据权限</a> ');
+		                actions.push('<a class="btn btn-info btn-xs ' + editFlag + '" href="#" onclick="authUser(\'' + row.roleId + '\')"><i class="fa fa-user"></i>分配用户</a> ');
+		                actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.roleId + '\')"><i class="fa fa-remove"></i>删除</a> ');
 		                return actions.join('');
 		            }
 		        }]
@@ -127,10 +125,39 @@
 		    $.table.init(options);
 		});
 		
-		/*角色管理-分配数据权限*/
-		function rule(roleId) {
-		    var url = prefix + '/rule/' + roleId;
+		/* 角色管理-分配数据权限 */
+		function authDataScope(roleId) {
+		    var url = prefix + '/authDataScope/' + roleId;
 		    $.modal.open("分配数据权限", url);
+		}
+		
+		/* 角色管理-分配用户 */
+		function authUser(roleId) {
+		    var url = prefix + '/authUser/' + roleId;
+		    $.modal.openTab("分配用户", url);
+		}
+		
+		/* 角色状态显示 */
+		function statusTools(row) {
+		    if (row.status == 1) {
+    			return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="enable(\'' + row.roleId + '\')"></i> ';
+    		} else {
+    			return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="disable(\'' + row.roleId + '\')"></i> ';
+    		}
+		}
+		
+		/* 角色管理-停用 */
+		function disable(roleId) {
+			$.modal.confirm("确认要停用角色吗？", function() {
+				$.operate.post(prefix + "/changeStatus", { "roleId": roleId, "status": 1 });
+		    })
+		}
+
+		/* 角色管理启用 */
+		function enable(roleId) {
+			$.modal.confirm("确认要启用角色吗？", function() {
+				$.operate.post(prefix + "/changeStatus", { "roleId": roleId, "status": 0 });
+		    })
 		}
 	</script>
 </body>
