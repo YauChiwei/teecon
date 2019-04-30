@@ -95,6 +95,7 @@ public class UserController extends BaseController {
      * @param map
      * @return
      */
+    @GetMapping("/add")
     public String add(ModelMap map) {
     	map.put("roles", roleService.selectRoleAll());
     	map.put("posts", postService.selectPostAll());

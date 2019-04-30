@@ -1,6 +1,12 @@
 /**
- * 菜单处理
+ * 首页方法封装处理
+ * Copyright (c) 2019 ruoyi
  */
+layer.config({
+    extend: 'moon/style.css',
+    skin: 'layer-ext-moon'
+});
+
 $(function() {
     // MetsiMenu
     $('#side-menu').metisMenu();
@@ -45,6 +51,7 @@ function() {
     if ($(this).width() < 769) {
         $('body').addClass('mini-navbar');
         $('.navbar-static-side').fadeIn();
+        $(".sidebar-collapse .logo").addClass("hide");
     }
 });
 
@@ -55,12 +62,14 @@ function NavToggle() {
 function SmoothlyMenu() {
     if (!$('body').hasClass('mini-navbar')) {
         $('#side-menu').hide();
+        $(".sidebar-collapse .logo").removeClass("hide");
         setTimeout(function() {
             $('#side-menu').fadeIn(500);
         },
         100);
     } else if ($('body').hasClass('fixed-sidebar')) {
         $('#side-menu').hide();
+        $(".sidebar-collapse .logo").addClass("hide");
         setTimeout(function() {
             $('#side-menu').fadeIn(500);
         },
@@ -115,14 +124,14 @@ $(function() {
 
     //查看左侧隐藏的选项卡
     function scrollTabLeft() {
-        var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')));
+        var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')) + 50);
         // 可视区域非tab宽度
         var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
         //可视区域tab宽度
         var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
         //实际滚动宽度
         var scrollVal = 0;
-        if ($(".page-tabs-content").width() < visibleWidth) {
+        if (($(".page-tabs-content").width() + 50) < visibleWidth) {
             return false;
         } else {
             var tabElement = $(".menuTab:first");
@@ -240,7 +249,7 @@ $(function() {
     function closeTab() {
         var closeTabId = $(this).parents('.menuTab').data('id');
         var currentWidth = $(this).parents('.menuTab').width();
-
+        var panelUrl = $(this).parents('.menuTab').data('panel');
         // 当前元素处于活动状态
         if ($(this).parents('.menuTab').hasClass('active')) {
 
@@ -298,6 +307,16 @@ $(function() {
                         return false;
                     }
                 });
+                
+                if($.common.isNotEmpty(panelUrl)){
+            		$('.menuTab[data-id="' + panelUrl + '"]').addClass('active').siblings('.menuTab').removeClass('active');
+            		$('.mainContent .TeeconOA_iframe').each(function() {
+                        if ($(this).data('id') == panelUrl) {
+                            $(this).show().siblings('.TeeconOA_iframe').hide();
+                            return false;
+                        }
+            		});
+            	}
             }
         }
         // 当前元素不处于活动状态
@@ -312,8 +331,8 @@ $(function() {
                     return false;
                 }
             });
-            scrollToTab($('.menuTab.active'));
         }
+        scrollToTab($('.menuTab.active'));
         return false;
     }
 
