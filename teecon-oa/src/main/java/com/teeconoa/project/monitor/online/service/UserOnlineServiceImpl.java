@@ -18,16 +18,15 @@ import com.teeconoa.project.monitor.online.mapper.UserOnlineMapper;
 @Service
 public class UserOnlineServiceImpl implements IUserOnlineService {
 
-//	@Autowired
-//    private UserOnlineMapper userOnlineDao;
+	@Autowired
+    private UserOnlineMapper userOnlineMapper;
 
     @Autowired
     private OnlineSessionDAO onlineSessionDAO;
     
 	@Override
 	public UserOnline selectOnlineById(String sessionId) {
-		// TODO Auto-generated method stub
-		return null;
+		return userOnlineMapper.selectOnlineById(sessionId);
 	}
 
 	@Override
