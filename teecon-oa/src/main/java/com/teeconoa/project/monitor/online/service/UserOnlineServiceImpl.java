@@ -3,9 +3,11 @@ package com.teeconoa.project.monitor.online.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teeconoa.common.DateUtils;
 import com.teeconoa.framework.shiro.session.OnlineSessionDAO;
 import com.teeconoa.project.monitor.online.domain.UserOnline;
 import com.teeconoa.project.monitor.online.mapper.UserOnlineMapper;
@@ -31,38 +33,46 @@ public class UserOnlineServiceImpl implements IUserOnlineService {
 
 	@Override
 	public void deleteOnlineById(String sessionId) {
-		// TODO Auto-generated method stub
-
+		UserOnline userOnline = selectOnlineById(sessionId);
+		if(userOnline != null) {
+			userOnlineMapper.deleteOnlineById(sessionId);
+		}
 	}
 
 	@Override
 	public void batchDeleteOnline(List<String> sessions) {
-		// TODO Auto-generated method stub
-
+		for(String sessionId : sessions) {
+			UserOnline userOnline = selectOnlineById(sessionId);
+			if(userOnline != null) {
+				userOnlineMapper.deleteOnlineById(sessionId);
+			}
+		}
 	}
 
 	@Override
 	public void saveOnline(UserOnline online) {
-		// TODO Auto-generated method stub
-
+		userOnlineMapper.saveOnline(online);
 	}
 
 	@Override
 	public List<UserOnline> selectUserOnlineList(UserOnline userOnline) {
-		// TODO Auto-generated method stub
-		return null;
+		return userOnlineMapper.selectUserOnlineList(userOnline);
 	}
 
 	@Override
 	public void forceLogout(String sessionId) {
-		// TODO Auto-generated method stub
-
+		Session session = onlineSessionDAO.readSession(sessionId);
+		if(session == null) {
+			return;
+		}
+		session.setTimeout(1000);
+		userOnlineMapper.deleteOnlineById(sessionId);
 	}
 
 	@Override
 	public List<UserOnline> selectOnlineByExpired(Date expiredDate) {
-		// TODO Auto-generated method stub
-		return null;
+		String lastAccessTime = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, expiredDate);
+		return userOnlineMapper.selectOnlineByExpired(lastAccessTime);
 	}
 
 }
