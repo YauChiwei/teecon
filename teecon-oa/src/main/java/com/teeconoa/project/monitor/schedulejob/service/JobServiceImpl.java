@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ruoyi.project.monitor.job.util.ScheduleUtils;
+import com.teeconoa.project.monitor.schedulejob.util.ScheduleUtils;
 import com.teeconoa.common.constant.ScheduleConstants;
 import com.teeconoa.common.exception.job.TaskException;
 import com.teeconoa.common.support.Convert;
@@ -54,6 +54,8 @@ public class JobServiceImpl implements IJobService
             }
         }
     }
+    
+    
 
     /**
      * 获取quartz调度器的计划任务列表

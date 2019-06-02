@@ -1,15 +1,16 @@
-package com.ruoyi.project.monitor.job.domain;
+package com.teeconoa.project.monitor.schedulejob.domain;
 
 import java.util.Date;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ruoyi.framework.aspectj.lang.annotation.Excel;
-import com.ruoyi.framework.web.domain.BaseEntity;
+
+import com.teeconoa.framework.aspectj.lang.annotation.Excel;
+import com.teeconoa.framework.web.domain.BaseEntity;
 
 /**
  * 定时任务调度日志表 sys_job_log
  * 
- * @author ruoyi
  */
 public class JobLog extends BaseEntity
 {
