@@ -30,10 +30,10 @@ import com.teeconoa.project.monitor.schedulejob.service.IJobService;
 **/
 
 @Controller
-@RequestMapping("/monitor/schedulejob")
+@RequestMapping("/monitor/job")
 public class JobController extends BaseController{
 
-	private static final String prefix = "monitor/schedulejob";
+	private static final String prefix = "monitor/job";
 	
 	@Autowired
 	private IJobService jobService;

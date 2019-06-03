@@ -12,6 +12,7 @@ import com.teeconoa.common.DateUtils;
 import com.teeconoa.common.StringUtils;
 import com.teeconoa.common.utils.security.ShiroUtils;
 import com.teeconoa.framework.web.domain.AjaxResult;
+import com.teeconoa.framework.web.domain.AjaxResult.Type;
 import com.teeconoa.framework.web.page.PageDomain;
 import com.teeconoa.framework.web.page.TableDataInfo;
 import com.teeconoa.framework.web.page.TableSupport;
@@ -102,10 +103,12 @@ public class BaseController {
     /**
      * 返回错误码消息
      */
-    public AjaxResult error(int code, String message)
+    public AjaxResult error(Type type, String message)
     {
-        return AjaxResult.error(code, message);
+        return new AjaxResult(type, message);
     }
+    
+    
 
     /**
      * 页面跳转
